@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :bookings, except: [:new, :edit]
+  resources :assignments, except: [:new, :edit]
+  resources :boats, except: [:new, :edit]
+  resources :timeslots, except: [:new, :edit]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
