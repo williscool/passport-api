@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140828233843) do
+ActiveRecord::Schema.define(version: 20140830010606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,8 +42,10 @@ ActiveRecord::Schema.define(version: 20140828233843) do
     t.hstore   "meta"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "boat_id"
   end
 
+  add_index "bookings", ["boat_id"], name: "index_bookings_on_boat_id", using: :btree
   add_index "bookings", ["timeslot_id"], name: "index_bookings_on_timeslot_id", using: :btree
 
   create_table "timeslots", force: true do |t|

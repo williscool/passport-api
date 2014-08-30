@@ -9,7 +9,10 @@ gem 'spring', :group => :development
 gem 'pg'
 
 group :development, :test do
-    gem 'rspec-rails'
+  gem 'rspec-rails'
+  gem "factory_girl_rails"
+  gem 'pry'
+  gem 'pry-rails'
 end
 
 gem 'active_model_serializers' 
