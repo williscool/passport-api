@@ -1,0 +1,25 @@
+     Prefix Verb   URI Pattern                Controller#Action
+   bookings GET    /bookings(.:format)        bookings#index
+            POST   /bookings(.:format)        bookings#create
+    booking GET    /bookings/:id(.:format)    bookings#show
+            PATCH  /bookings/:id(.:format)    bookings#update
+            PUT    /bookings/:id(.:format)    bookings#update
+            DELETE /bookings/:id(.:format)    bookings#destroy
+assignments GET    /assignments(.:format)     assignments#index
+            POST   /assignments(.:format)     assignments#create
+ assignment GET    /assignments/:id(.:format) assignments#show
+            PATCH  /assignments/:id(.:format) assignments#update
+            PUT    /assignments/:id(.:format) assignments#update
+            DELETE /assignments/:id(.:format) assignments#destroy
+      boats GET    /boats(.:format)           boats#index
+            POST   /boats(.:format)           boats#create
+       boat GET    /boats/:id(.:format)       boats#show
+            PATCH  /boats/:id(.:format)       boats#update
+            PUT    /boats/:id(.:format)       boats#update
+            DELETE /boats/:id(.:format)       boats#destroy
+  timeslots GET    /timeslots(.:format)       timeslots#index
+            POST   /timeslots(.:format)       timeslots#create
+   timeslot GET    /timeslots/:id(.:format)   timeslots#show
+            PATCH  /timeslots/:id(.:format)   timeslots#update
+            PUT    /timeslots/:id(.:format)   timeslots#update
+            DELETE /timeslots/:id(.:format)   timeslots#destroy
