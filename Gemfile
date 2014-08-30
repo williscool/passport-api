@@ -9,7 +9,7 @@ gem 'spring', :group => :development
 gem 'pg'
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 2.14'
   gem "factory_girl_rails"
   gem 'pry'
   gem 'pry-rails'
