@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Booking do
+
   it "can only be done when there is enough timeslot availability" do 
       timeslot = FactoryGirl.create(:timeslot)
       big_boat = timeslot.boats.create(name:"titan", capacity: 10)
@@ -21,5 +22,42 @@ describe Booking do
 
       expect(booking_neg).to have(1).errors_on(:size)
       expect(booking_zero).to have(1).errors_on(:size)
+  end
+
+  describe "picks boat with smallest availability that will fit" do 
+
+    it "corectly with no prior bookings" do
+      timeslot = FactoryGirl.create(:timeslot)
+
+      small_boat = timeslot.boats.create(name:"titan", capacity: 5)
+      big_boat = timeslot.boats.create(name:"titan", capacity: 10)
+      medium_boat = timeslot.boats.create(name:"titan", capacity: 7)
+
+      timeslot.assignments.create(boat:small_boat)
+      timeslot.assignments.create(boat:big_boat)
+      timeslot.assignments.create(boat:medium_boat)
+
+      timeslot.bookings.create(size:7)
+
+      expect(timeslot.bookings.first.boat).to eq(medium_boat)
+    end
+
+    it "corectly with one prior booking" do
+      timeslot = FactoryGirl.create(:timeslot)
+
+      small_boat = timeslot.boats.create(name:"titan", capacity: 5)
+      big_boat = timeslot.boats.create(name:"titan", capacity: 10)
+      medium_boat = timeslot.boats.create(name:"titan", capacity: 8)
+
+      timeslot.assignments.create(boat:small_boat)
+      timeslot.assignments.create(boat:big_boat)
+      timeslot.assignments.create(boat:medium_boat)
+
+      timeslot.bookings.create(size:7)
+      timeslot.bookings.create(size:7)
+
+      expect(timeslot.bookings.first.boat).to eq(medium_boat)
+      expect(timeslot.bookings.last.boat).to eq(big_boat)
+    end
   end
 end

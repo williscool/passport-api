@@ -3,6 +3,8 @@ class Timeslot < ActiveRecord::Base
   has_many :boats, through: :assignments
 
   has_many :bookings
+
+  #validates :start_time, :duration, presence: true
   
   def availability
   # The availability is the maximum booking size of any new booking on this timeslot. 
@@ -12,17 +14,7 @@ class Timeslot < ActiveRecord::Base
 
     self.boats.each do |boat|
       # naive and slow :(
-      
-      booking = self.bookings.where(boat: boat).first
-
-      amt_booked = 0 
-
-      if booking.present?
-        amt_booked = booking.size
-      end
-      
-      avail_of_boat = boat.capacity - amt_booked
-
+      avail_of_boat = boat.availability_by_timeslot(self)
       avail = avail_of_boat if avail_of_boat > avail
     end
 

@@ -1,14 +1,18 @@
 require 'spec_helper'
 
 describe BoatsController do
-    it "assigns timeslots" do
+  describe "GET index" do
+    it "assigns boats" do
       boat = FactoryGirl.create(:boat)
       get :index
       expect(assigns(:boats)).to eq([boat])
     end
+  end
 
-    it "assigns timeslot" do
+  describe "POST create" do
+    it "assigns boat" do
       post :create, name:"titan", capacity: 8
       expect(assigns(:boat).name).to eq("titan")
     end
+  end
 end

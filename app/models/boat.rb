@@ -5,4 +5,11 @@ class Boat < ActiveRecord::Base
 
   #name and capacity come from db
 
+  def availability_by_timeslot(ts)
+      # naive and slow :(
+     
+      bookings_total = Booking.where(timeslot:ts, boat:self).sum(:size) 
+      self.capacity - bookings_total
+  end
+
 end
