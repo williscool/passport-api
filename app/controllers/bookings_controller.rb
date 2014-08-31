@@ -1,7 +1,7 @@
 class BookingsController < ApplicationController
   def create
-    @timeslot = Timeslot.find(params[:timeslot_id])
-    @booking = Booking.create(timeslot: @timeslot, size: params[:size])
+    @timeslot = Timeslot.find(params[:booking][:timeslot_id])
+    @booking = Booking.create(timeslot: @timeslot, size: params[:booking][:size])
 
     render json: @booking
   end

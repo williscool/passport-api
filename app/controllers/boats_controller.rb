@@ -1,6 +1,6 @@
 class BoatsController < ApplicationController
   def create
-    @boat = Boat.create(capacity: params[:capacity], name: params[:name])   
+    @boat = Boat.create(capacity: params[:boat][:capacity], name: params[:boat][:name])   
     render json: @boat
   end
 

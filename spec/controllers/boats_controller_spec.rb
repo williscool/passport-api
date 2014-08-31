@@ -11,7 +11,7 @@ describe BoatsController do
 
   describe "POST create" do
     it "assigns boat" do
-      post :create, name:"titan", capacity: 8
+      post :create, boat:{name:"titan", capacity: 8}
       expect(assigns(:boat).name).to eq("titan")
     end
   end

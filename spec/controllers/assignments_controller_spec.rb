@@ -22,7 +22,7 @@ describe AssignmentsController do
       ts_id = timeslot.id
       b_id = big_boat.id
 
-      post :create, timeslot_id: ts_id, boat_id: b_id
+      post :create, assignment: {timeslot_id: ts_id, boat_id: b_id}
 
       expect((timeslot.assignments.first).boat).to eq(big_boat)
     end

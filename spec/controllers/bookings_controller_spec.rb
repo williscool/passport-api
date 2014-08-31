@@ -18,7 +18,7 @@ describe BookingsController do
       timeslot = FactoryGirl.create(:timeslot, duration: 30, start_time: Time.now + 3.hours)
       big_boat = timeslot.boats.create(name:"titan", capacity: 10)
 
-      post :create, timeslot_id: timeslot.id, size: 2
+      post :create, booking: {timeslot_id: timeslot.id, size: 2}
 
       expect(timeslot.bookings.first.size).to eq(2)
       expect(timeslot.bookings.first.boat).to eq(big_boat)
