@@ -1,6 +1,6 @@
 class TimeslotsController < ApplicationController
   def create
-    @timeslot = Timeslot.create(start_time: params[:timeslot][:start_time], duration: params[:timeslot][:duration])   
+    @timeslot = Timeslot.create(start_time: Time.at(params[:timeslot][:start_time].to_i), duration: params[:timeslot][:duration])   
     render json: @timeslot
   end
 
