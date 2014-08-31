@@ -32,8 +32,10 @@ GEM
     arel (5.0.1.20140414130214)
     builder (3.2.2)
     coderay (1.1.0)
+    daemons (1.1.9)
     diff-lcs (1.2.5)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.4.1)
@@ -102,6 +104,13 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    thin (1.6.2)
+      daemons (>= 1.0.9)
+      eventmachine (>= 1.0.0)
+      rack (>= 1.0.0)
+    thin-rails (1.0.1)
+      rack
+      thin
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
@@ -124,3 +133,5 @@ DEPENDENCIES
   rails-api
   rspec-rails (~> 2.14)
   spring
+  thin
+  thin-rails
