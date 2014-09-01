@@ -1,5 +1,5 @@
 class AssignmentSerializer < ActiveModel::Serializer
-  attributes :id, :meta
+  attributes :id
   has_one :timeslot
   has_one :boat
 end

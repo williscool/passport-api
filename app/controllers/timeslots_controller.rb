@@ -1,4 +1,6 @@
 class TimeslotsController < ApplicationController
+  include ActiveModel::Serialization
+
   def create
     @timeslot = Timeslot.create(start_time: Time.at(params[:timeslot][:start_time].to_i), duration: params[:timeslot][:duration])   
     render json: @timeslot
@@ -13,6 +15,11 @@ class TimeslotsController < ApplicationController
       @timeslots = Timeslot.all 
     end
 
-    render json: @timeslots
+    render json: ActiveModel::ArraySerializer.new(@timeslots, each_serializer: TimeslotSerializer)
+  end
+
+  def show
+    @timeslot = Timeslot.find(params[:id])
+    render json: TimeslotSerializer.new(@timeslot)
   end
 end
