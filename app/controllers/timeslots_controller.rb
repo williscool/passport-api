@@ -3,7 +3,7 @@ class TimeslotsController < ApplicationController
 
   def create
     @timeslot = Timeslot.create(start_time: Time.at(params[:timeslot][:start_time].to_i), duration: params[:timeslot][:duration])   
-    render json: @timeslot
+    render json: TimeslotSerializer.new(@timeslot, root:false)
   end
 
   def index
@@ -20,6 +20,6 @@ class TimeslotsController < ApplicationController
 
   def show
     @timeslot = Timeslot.find(params[:id])
-    render json: TimeslotSerializer.new(@timeslot)
+    render json: TimeslotSerializer.new(@timeslot, root:false)
   end
 end

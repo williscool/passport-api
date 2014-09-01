@@ -1,7 +1,7 @@
 class BoatsController < ApplicationController
   def create
     @boat = Boat.create(capacity: params[:boat][:capacity], name: params[:boat][:name])   
-    render json: BoatSerializer.new(@boat)
+    render json: BoatSerializer.new(@boat, root:false)
   end
 
   def index
