@@ -1,7 +1,12 @@
 class AssignmentsController < ApplicationController
   def create
     @assignment = Assignment.create(timeslot: Timeslot.find(params[:assignment][:timeslot_id]), boat: Boat.find(params[:assignment][:boat_id]))   
-    render json: AssignmentSerializer.new(@assignment, root:false)
+    
+    if @assignment.save
+      render json: AssignmentSerializer.new(@assignment, root:false)
+    else
+      render json: @assignment.errors
+    end
   end
 
   def index

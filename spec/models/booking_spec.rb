@@ -60,4 +60,50 @@ describe Booking do
       expect(timeslot.bookings.last.boat).to eq(big_boat)
     end
   end
+
+  describe "conflict resolution" do
+    it "removes boats from conflicting timeslots" do
+      ts1 = FactoryGirl.create(:timeslot, start_time:Time.now, duration:1.hour)
+      ts2 = FactoryGirl.create(:timeslot, start_time:Time.now + 30.minutes, duration:1.hour)
+      ts3 = FactoryGirl.create(:timeslot, start_time:Time.now - 30.minutes, duration:1.hour)
+      
+      small_boat = ts1.boats.create(name:"titan", capacity: 8)
+      ts2.assignments.create(boat:small_boat)
+      ts3.assignments.create(boat:small_boat)
+
+      expect(ts1.availability).to eq(8)
+      expect(ts2.availability).to eq(8)
+      expect(ts3.availability).to eq(8)
+
+      ts2.bookings.create(size: 2, boat: small_boat)
+
+      # sad face at having to reload to models. you would think they would do that to themselves
+      # but then again the removal happens in the db which is what they are loaded from so its not completly retarded
+      
+      ts1.reload
+      ts2.reload
+      ts3.reload
+
+      expect(ts1.availability).to eq(0)
+      expect(ts3.availability).to eq(0)
+      expect(ts2.availability).to eq(6)
+    end
+
+    it "wont add booking to boat with a booking from conflicting timeslot" do
+      ts1 = FactoryGirl.create(:timeslot, start_time:Time.now, duration:1.hour)
+      ts2 = FactoryGirl.create(:timeslot, start_time:Time.now + 30.minutes, duration:1.hour)
+      
+      small_boat = ts1.boats.create(name:"money", capacity: 8)
+
+      ts1.bookings.create(size: 2)
+      expect(ts1.availability).to eq(6)
+
+      assignment = ts2.assignments.create(boat:small_boat)
+
+      booking = ts2.bookings.create(size: 2)
+
+      expect(ts2.availability).to eq(0)
+
+    end
+  end
 end

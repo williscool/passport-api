@@ -30,5 +30,9 @@ class Timeslot < ActiveRecord::Base
     Booking.where(timeslot:self).sum(:size)
   end
 
+  def end_time
+    self.start_time + self.duration.minutes
+  end
+
   # boats come from db reference association
 end
